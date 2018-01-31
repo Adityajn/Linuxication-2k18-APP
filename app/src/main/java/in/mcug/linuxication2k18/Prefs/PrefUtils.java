@@ -33,10 +33,10 @@ public class PrefUtils {
         edit.apply();
     }
 
-    public static void login(Context context,String name){
+    public static void login(Context context,String name,String secret){
         SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(context).edit();
         edit.putString(VOLUNTEER_NAME,name);
-        edit.putString(SECRET,"linuxicationhasasecret");
+        edit.putString(SECRET,secret);
         edit.putBoolean(IS_LOGGED_IN,true);
         edit.apply();
     }

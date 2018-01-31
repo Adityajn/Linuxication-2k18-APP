@@ -1,6 +1,5 @@
 package in.mcug.linuxication2k18.Activities;
 
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class Home extends AppCompatActivity {
 
@@ -33,6 +31,7 @@ public class Home extends AppCompatActivity {
     @BindView(R.id.amount_pending) TextInputEditText amount_pending;
     @BindView(R.id.amount_total) TextInputEditText amount_total;
     @BindView(R.id.mainLayout) LinearLayout mainLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +39,15 @@ public class Home extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-
     @OnClick(R.id.register)
     public void registerCandidate(){
         String name = candidate_name.getText().toString();
         String mobile = mobile_number.getText().toString();
-        String email = email_id.getText().toString();
+        final String email = email_id.getText().toString();
         String paid = amount_paid.getText().toString();
         String pending = amount_pending.getText().toString();
         String total = amount_total.getText().toString();
+
 
         if(name.equals("") || mobile.equals("") || paid.equals("")){
             Alerter.create(this)
@@ -76,21 +75,46 @@ public class Home extends AppCompatActivity {
                     Log.v("ResponseCode",""+code);
                     RegisterResponse docResponse=response.body();
                     if(docResponse.isStatus()){
-                        Snackbar.make(findViewById(R.id.mainLayout),
-                                docResponse.getMessage()+". Redirecting to Home.",Snackbar.LENGTH_SHORT).show();
+                        Alerter.create(Home.this)
+                                .setTitle("Registration Done")
+                                .setText(docResponse.getMessage())
+                                .setDuration(10000)
+                                .setBackgroundColorRes(R.color.green)
+                                .enableSwipeToDismiss()
+                                .show();
+                        candidate_name.setText("");
+                        mobile_number.setText("");
+                        email_id.setText("");
+                        clg_name.setText("");
+                        amount_paid.setText("");
+                        amount_pending.setText("");
+                        amount_total.setText("");
                     }
                     else{
-                        Snackbar.make(findViewById(R.id.mainLayout),docResponse.getMessage(),Snackbar.LENGTH_SHORT).show();
+                        Alerter.create(Home.this)
+                                .setTitle("Registration Failed")
+                                .setText(docResponse.getMessage())
+                                .setDuration(10000)
+                                .setBackgroundColorRes(R.color.red)
+                                .enableSwipeToDismiss()
+                                .show();
                     }
                 }
                 @Override
                 public void onFailure(Call<RegisterResponse> call, Throwable t) {
-
+                    Alerter.create(Home.this)
+                            .setTitle("Registration Failed")
+                            .setText("Check Internet Connection or Contact App Administrator.")
+                            .setDuration(10000)
+                            .setBackgroundColorRes(R.color.red)
+                            .enableSwipeToDismiss()
+                            .show();
                 }
             });
-
         }
     }
+    @Override
+    public void onBackPressed() {}
 
 
 }
