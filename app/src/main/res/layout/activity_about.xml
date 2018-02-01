@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/colorPrimaryDark"
+    tools:context="in.mcug.linuxication2k18.Activities.About">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Linuxication, by"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/logo"
+        android:layout_margin="30dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Visit www.mcug.in"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:padding="5dp"
+        android:elevation="10dp"
+        android:background="@color/colorPrimary"
+        android:id="@+id/website"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credits"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:id="@+id/credits"/>
+
+
+
+</LinearLayout>

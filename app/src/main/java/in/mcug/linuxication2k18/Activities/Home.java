@@ -1,8 +1,11 @@
 package in.mcug.linuxication2k18.Activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.ActionBar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +16,10 @@ import android.widget.LinearLayout;
 
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.tapadoo.alerter.Alerter;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import in.mcug.linuxication2k18.Http.HttpRequest;
 import in.mcug.linuxication2k18.Pojos.RegisterResponse;
@@ -37,16 +44,13 @@ public class Home extends AppCompatActivity {
     @BindView(R.id.amount_pending) TextInputEditText amount_pending;
     @BindView(R.id.amount_total) TextInputEditText amount_total;
     @BindView(R.id.mainLayout) LinearLayout mainLayout;
-    private ActionBar toolbar;
+    @BindView(R.id.comment) TextInputEditText comment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-        toolbar = getSupportActionBar();
-
-
     }
 
     @OnClick(R.id.register)
@@ -57,7 +61,8 @@ public class Home extends AppCompatActivity {
         String paid = amount_paid.getText().toString();
         String pending = amount_pending.getText().toString();
         String total = amount_total.getText().toString();
-
+        String comments = comment.getText().toString();
+        String datetime = getCurrentDateTime();
 
         if(name.equals("") || mobile.equals("") || paid.equals("")){
             Alerter.create(this)
@@ -71,7 +76,7 @@ public class Home extends AppCompatActivity {
         else{
             String volunteer = PrefUtils.getVolunteerName(getApplicationContext());
             String secret = PrefUtils.getSecret(getApplicationContext());
-            RegistrationForm form  =new RegistrationForm(name,mobile,email,paid,pending,total,volunteer,secret);
+            RegistrationForm form  =new RegistrationForm(name,mobile,email,paid,pending,total,comments,datetime,volunteer,secret);
 
             HttpRequest.RetrofitInterface retrofitInterface
                     = HttpRequest.retrofit.create(HttpRequest.RetrofitInterface.class);
@@ -123,9 +128,15 @@ public class Home extends AppCompatActivity {
             });
         }
     }
+
+    public String getCurrentDateTime(){
+        DateTime now = DateTime.now();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd-MM-yyyy hh:mm:SSa");
+        return fmt.print(now);
+    }
+
     @Override
     public void onBackPressed() {}
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,9 +173,26 @@ public class Home extends AppCompatActivity {
                 break;
             case R.id.collection:
                 break;
+            case R.id.about:
+                startActivity(new Intent(getApplicationContext(),About.class));
+                break;
+            case R.id.help:
+                if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)== PackageManager.PERMISSION_GRANTED){
+                    startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+"9373717357")));
+                }
+                else{
+                    ActivityCompat.requestPermissions(Home.this,new String[]{Manifest.permission.CALL_PHONE},1);
+                    if(ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE)== PackageManager.PERMISSION_GRANTED){
+                        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+"9373717357")));
+                    }
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
 
 }

@@ -7,5 +7,6 @@
     <color name="orange">#d9720c</color>
     <color name="green">#013d01</color>
     <color name="red">#941c14</color>
+    <color name="activity_background">#4FC3F7</color>
 
 </resources>

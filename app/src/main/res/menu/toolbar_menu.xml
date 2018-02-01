@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        app:showAsAction="never"
+        android:id="@+id/collection"
+        android:icon="@drawable/rupeeindian"
+        android:title="My Collection"/>
+    <item
         android:icon="@drawable/list"
         android:title="Registered Candidates"
         android:id="@+id/list"
@@ -9,12 +14,17 @@
     <item
         android:id="@+id/logout"
         android:icon="@drawable/logout"
-        android:title="Log Out"
+        android:title="LogOut"
         app:showAsAction="never"
         />
     <item
+        android:id="@+id/about"
+        android:title="About LX18"
         app:showAsAction="never"
-        android:id="@+id/collection"
-        android:icon="@drawable/rupeeindian"
-        android:title="Money Collected"/>
+        />
+    <item
+        android:title="Need Help?"
+        app:showAsAction="never"
+        android:id="@+id/help"
+        />
 </menu>

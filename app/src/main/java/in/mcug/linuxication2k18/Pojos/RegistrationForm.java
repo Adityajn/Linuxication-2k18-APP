@@ -11,10 +11,12 @@ public class RegistrationForm {
     String paid;
     String pending;
     String total;
+    String comment;
+    String datetime;
     String volunteer;
     String secret;
 
-    public RegistrationForm(String name, String mobile, String email, String paid, String pending, String total, String volunteer, String secret) {
+    public RegistrationForm(String name, String mobile, String email, String paid, String pending, String total,String comment,String datetime,String volunteer, String secret) {
         this.name = name;
         this.mobile = mobile;
         this.email = email;
@@ -23,5 +25,7 @@ public class RegistrationForm {
         this.total = total;
         this.volunteer = volunteer;
         this.secret = secret;
+        this.comment=comment;
+        this.datetime=datetime;
     }
 }

@@ -102,4 +102,8 @@ public class Splash extends AppCompatActivity {
                     .show();
         }
     }
+
+    //Disabling Back Button
+    @Override
+    public void onBackPressed() {}
 }
