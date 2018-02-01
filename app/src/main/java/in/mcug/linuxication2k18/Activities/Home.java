@@ -1,11 +1,17 @@
 package in.mcug.linuxication2k18.Activities;
 
+import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.tapadoo.alerter.Alerter;
 
 import in.mcug.linuxication2k18.Http.HttpRequest;
@@ -31,12 +37,16 @@ public class Home extends AppCompatActivity {
     @BindView(R.id.amount_pending) TextInputEditText amount_pending;
     @BindView(R.id.amount_total) TextInputEditText amount_total;
     @BindView(R.id.mainLayout) LinearLayout mainLayout;
+    private ActionBar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
+        toolbar = getSupportActionBar();
+
+
     }
 
     @OnClick(R.id.register)
@@ -115,6 +125,46 @@ public class Home extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {}
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.list:
+                break;
+            case R.id.logout:
+                new SweetAlertDialog(this,SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are You Sure?")
+                        .setContentText("You will lose your API secret key and you will need to contact Administrator Again for it!!")
+                        .setConfirmText("Confirm")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                PrefUtils.logOut(getApplicationContext());
+                                startActivity(new Intent(getApplicationContext(),Splash.class));
+                            }
+                        })
+                        .setCancelText("Cancel")
+                        .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.cancel();
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.collection:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
 }
