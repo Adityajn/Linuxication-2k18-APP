@@ -1,5 +1,4 @@
 package in.mcug.linuxication2k18.Activities;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBar;
@@ -11,6 +10,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.mcug.linuxication2k18.R;
+
+/**
+ * Created by aditya on 2/1/18.
+ */
 
 public class About extends AppCompatActivity {
 

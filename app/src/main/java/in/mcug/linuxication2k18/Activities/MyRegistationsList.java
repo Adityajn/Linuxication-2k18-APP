@@ -6,6 +6,11 @@ import android.os.Bundle;
 
 import in.mcug.linuxication2k18.R;
 
+/**
+ * Created by aditya on 2/1/18.
+ */
+
+
 public class MyRegistationsList extends AppCompatActivity {
 
     @Override

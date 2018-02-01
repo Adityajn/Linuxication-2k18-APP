@@ -20,6 +20,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * Created by aditya on 2/1/18.
+ */
+
 public class Splash extends AppCompatActivity {
 
     @BindView(R.id.v_name) TextInputEditText vname;

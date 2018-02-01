@@ -8,7 +8,7 @@ public class RegistrationForm {
     String name;
     String mobile;
     String email;
-    String paid;
+    int paid;
     String pending;
     String total;
     String comment;
@@ -16,7 +16,7 @@ public class RegistrationForm {
     String volunteer;
     String secret;
 
-    public RegistrationForm(String name, String mobile, String email, String paid, String pending, String total,String comment,String datetime,String volunteer, String secret) {
+    public RegistrationForm(String name, String mobile, String email, int paid, String pending, String total,String comment,String datetime,String volunteer, String secret) {
         this.name = name;
         this.mobile = mobile;
         this.email = email;

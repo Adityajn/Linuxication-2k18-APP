@@ -34,6 +34,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Created by aditya on 2/1/18.
+ */
+
 public class Home extends AppCompatActivity {
 
     @BindView(R.id.candidate_name) TextInputEditText candidate_name;
@@ -61,7 +65,7 @@ public class Home extends AppCompatActivity {
         String paid = amount_paid.getText().toString();
         String pending = amount_pending.getText().toString();
         String total = amount_total.getText().toString();
-        String comments = comment.getText().toString();
+        final String comments = comment.getText().toString();
         String datetime = getCurrentDateTime();
 
         if(name.equals("") || mobile.equals("") || paid.equals("")){
@@ -76,7 +80,7 @@ public class Home extends AppCompatActivity {
         else{
             String volunteer = PrefUtils.getVolunteerName(getApplicationContext());
             String secret = PrefUtils.getSecret(getApplicationContext());
-            RegistrationForm form  =new RegistrationForm(name,mobile,email,paid,pending,total,comments,datetime,volunteer,secret);
+            RegistrationForm form  =new RegistrationForm(name,mobile,email,Integer.parseInt(paid),pending,total,comments,datetime,volunteer,secret);
 
             HttpRequest.RetrofitInterface retrofitInterface
                     = HttpRequest.retrofit.create(HttpRequest.RetrofitInterface.class);
@@ -104,6 +108,7 @@ public class Home extends AppCompatActivity {
                         amount_paid.setText("");
                         amount_pending.setText("");
                         amount_total.setText("");
+                        comment.setText("");
                     }
                     else{
                         Alerter.create(Home.this)
@@ -149,6 +154,7 @@ public class Home extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.list:
+                startActivity(new Intent(getApplicationContext(),MyRegistationsList.class));
                 break;
             case R.id.logout:
                 new SweetAlertDialog(this,SweetAlertDialog.WARNING_TYPE)
