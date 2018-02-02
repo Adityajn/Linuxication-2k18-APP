@@ -12,7 +12,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 import com.tapadoo.alerter.Alerter;
@@ -22,6 +24,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import in.mcug.linuxication2k18.Http.HttpRequest;
+import in.mcug.linuxication2k18.Pojos.DefaultRequest;
+import in.mcug.linuxication2k18.Pojos.MoneyResponse;
 import in.mcug.linuxication2k18.Pojos.RegisterResponse;
 import in.mcug.linuxication2k18.Pojos.RegistrationForm;
 import in.mcug.linuxication2k18.Prefs.PrefUtils;
@@ -47,8 +51,8 @@ public class Home extends AppCompatActivity {
     @BindView(R.id.amount_paid) TextInputEditText amount_paid;
     @BindView(R.id.amount_pending) TextInputEditText amount_pending;
     @BindView(R.id.amount_total) TextInputEditText amount_total;
-    @BindView(R.id.mainLayout) LinearLayout mainLayout;
     @BindView(R.id.comment) TextInputEditText comment;
+    @BindView(R.id.spinner) ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,7 @@ public class Home extends AppCompatActivity {
 
     @OnClick(R.id.register)
     public void registerCandidate(){
+        spinner.setVisibility(View.VISIBLE);
         String name = candidate_name.getText().toString();
         String mobile = mobile_number.getText().toString();
         final String email = email_id.getText().toString();
@@ -69,6 +74,7 @@ public class Home extends AppCompatActivity {
         String datetime = getCurrentDateTime();
 
         if(name.equals("") || mobile.equals("") || paid.equals("")){
+            spinner.setVisibility(View.GONE);
             Alerter.create(this)
                     .setTitle("Please Fill All Mandatory Fields!!")
                     .setText("Name, Mobile No, Amount Paid are Mandatory(*) fields")
@@ -94,6 +100,7 @@ public class Home extends AppCompatActivity {
                     Log.v("ResponseCode",""+code);
                     RegisterResponse docResponse=response.body();
                     if(docResponse.isStatus()){
+                        spinner.setVisibility(View.GONE);
                         Alerter.create(Home.this)
                                 .setTitle("Registration Done")
                                 .setText(docResponse.getMessage())
@@ -111,6 +118,7 @@ public class Home extends AppCompatActivity {
                         comment.setText("");
                     }
                     else{
+                        spinner.setVisibility(View.GONE);
                         Alerter.create(Home.this)
                                 .setTitle("Registration Failed")
                                 .setText(docResponse.getMessage())
@@ -122,6 +130,7 @@ public class Home extends AppCompatActivity {
                 }
                 @Override
                 public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                    spinner.setVisibility(View.GONE);
                     Alerter.create(Home.this)
                             .setTitle("Registration Failed")
                             .setText("Check Internet Connection or Contact App Administrator.")
@@ -178,6 +187,63 @@ public class Home extends AppCompatActivity {
                         .show();
                 break;
             case R.id.collection:
+                spinner.setVisibility(View.VISIBLE);
+                String volunteer = PrefUtils.getVolunteerName(getApplicationContext());
+                String secret = PrefUtils.getSecret(getApplicationContext());
+                DefaultRequest defaultRequest = new DefaultRequest(volunteer,secret);
+
+                HttpRequest.RetrofitInterface retrofitInterface
+                        = HttpRequest.retrofit.create(HttpRequest.RetrofitInterface.class);
+
+
+                Call<MoneyResponse> responseCall = retrofitInterface.moneyCollected(defaultRequest);
+                responseCall.enqueue(new Callback<MoneyResponse>() {
+                    @Override
+                    public void onResponse(Call<MoneyResponse> call, Response<MoneyResponse> response) {
+                        int code=response.code();
+                        Log.v("ResponseCode",""+code);
+                        MoneyResponse docResponse=response.body();
+                        if(docResponse.isStatus()){
+                            spinner.setVisibility(View.GONE);
+                            Alerter.create(Home.this)
+                                    .setTitle("Rs "+docResponse.getMoney())
+                                    .setText(docResponse.getMessage())
+                                    .setDuration(10000)
+                                    .setBackgroundColorRes(R.color.green)
+                                    .enableSwipeToDismiss()
+                                    .show();
+                            candidate_name.setText("");
+                            mobile_number.setText("");
+                            email_id.setText("");
+                            clg_name.setText("");
+                            amount_paid.setText("");
+                            amount_pending.setText("");
+                            amount_total.setText("");
+                            comment.setText("");
+                        }
+                        else{
+                            spinner.setVisibility(View.GONE);
+                            Alerter.create(Home.this)
+                                    .setTitle("Some Error Occurred")
+                                    .setText("Error!! "+docResponse.getMessage())
+                                    .setDuration(10000)
+                                    .setBackgroundColorRes(R.color.red)
+                                    .enableSwipeToDismiss()
+                                    .show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<MoneyResponse> call, Throwable t) {
+                        spinner.setVisibility(View.GONE);
+                        Alerter.create(Home.this)
+                                .setTitle("Some Error Occurred")
+                                .setText("Check Internet Connection or Contact App Administrator.")
+                                .setDuration(10000)
+                                .setBackgroundColorRes(R.color.red)
+                                .enableSwipeToDismiss()
+                                .show();
+                    }
+                });
                 break;
             case R.id.about:
                 startActivity(new Intent(getApplicationContext(),About.class));
@@ -196,9 +262,4 @@ public class Home extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
 }
