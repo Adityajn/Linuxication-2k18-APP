@@ -73,11 +73,11 @@ public class Home extends AppCompatActivity {
         final String comments = comment.getText().toString();
         String datetime = getCurrentDateTime();
 
-        if(name.equals("") || mobile.equals("") || paid.equals("")){
+        if(name.equals("") || mobile.length()!=10 || paid.equals("")){
             spinner.setVisibility(View.GONE);
             Alerter.create(this)
                     .setTitle("Please Fill All Mandatory Fields!!")
-                    .setText("Name, Mobile No, Amount Paid are Mandatory(*) fields")
+                    .setText("Name, 10 digit Mobile No, Amount Paid are Mandatory(*) fields")
                     .setDuration(5000)
                     .setBackgroundColorRes(R.color.orange)
                     .enableSwipeToDismiss()

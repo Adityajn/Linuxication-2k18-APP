@@ -1,5 +1,6 @@
 package in.mcug.linuxication2k18.Http;
 
+import in.mcug.linuxication2k18.Pojos.CandidatesList;
 import in.mcug.linuxication2k18.Pojos.DefaultRequest;
 import in.mcug.linuxication2k18.Pojos.MoneyResponse;
 import in.mcug.linuxication2k18.Pojos.RegisterResponse;
@@ -29,6 +30,10 @@ public class HttpRequest {
 
         @POST("/app/money")
         Call<MoneyResponse> moneyCollected(
+                @Body DefaultRequest defaultRequest);
+
+        @POST("/app/mycandidates")
+        Call<CandidatesList> myCandidates(
                 @Body DefaultRequest defaultRequest);
     }
 
