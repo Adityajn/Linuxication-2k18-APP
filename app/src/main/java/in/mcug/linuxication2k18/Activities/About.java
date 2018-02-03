@@ -24,7 +24,7 @@ public class About extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
-        credits.setText("Credits:\nHussain Ali Bohra");
+        credits.setText("Credits:\nAditya Jain\nHussain Ali Bohra");
         website.setText("Visit:\nwww.mcug.in");
         ActionBar toolbar = getSupportActionBar();
         toolbar.setDisplayHomeAsUpEnabled(true);
