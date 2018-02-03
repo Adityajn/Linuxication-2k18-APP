@@ -18,20 +18,13 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_margin="5dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/name"
                 android:textSize="15dp"
                 android:text="Name"
-                android:textStyle="bold"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/regid"
-                android:textSize="15dp"
-                android:text="Reg ID"
                 android:textStyle="bold"/>
             <TextView
                 android:layout_width="match_parent"
@@ -49,28 +42,38 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/paid"
-                android:text="Amount Paid"
-                android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:id="@+id/datetime"
+                android:text="DateTime"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_margin="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/regid"
+                android:textSize="15dp"
+                android:text="Reg ID"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/paid"
+                android:text="Paid"
+                android:textStyle="bold"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/pending"
-                android:textSize="15dp"
-                android:text="Amount Pending" />
+                android:text="Pending" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/datetime"
-                android:text="DateTime"
-                />
+                android:id="@+id/college"
+                android:text="College" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -66,11 +66,12 @@ public class Home extends AppCompatActivity {
         spinner.setVisibility(View.VISIBLE);
         String name = candidate_name.getText().toString();
         String mobile = mobile_number.getText().toString();
-        final String email = email_id.getText().toString();
+        String email = email_id.getText().toString();
         String paid = amount_paid.getText().toString();
         String pending = amount_pending.getText().toString();
         String total = amount_total.getText().toString();
-        final String comments = comment.getText().toString();
+        String comments = comment.getText().toString();
+        String college = clg_name.getText().toString();
         String datetime = getCurrentDateTime();
 
         if(name.equals("") || mobile.length()!=10 || paid.equals("")){
@@ -86,11 +87,10 @@ public class Home extends AppCompatActivity {
         else{
             String volunteer = PrefUtils.getVolunteerName(getApplicationContext());
             String secret = PrefUtils.getSecret(getApplicationContext());
-            RegistrationForm form  =new RegistrationForm(name,mobile,email,Integer.parseInt(paid),pending,total,comments,datetime,volunteer,secret);
+            RegistrationForm form  =new RegistrationForm(name,mobile,email,college,Integer.parseInt(paid),pending,total,comments,datetime,volunteer,secret);
 
             HttpRequest.RetrofitInterface retrofitInterface
                     = HttpRequest.retrofit.create(HttpRequest.RetrofitInterface.class);
-
 
             Call<RegisterResponse> responseCall = retrofitInterface.registerCandidate(form);
             responseCall.enqueue(new Callback<RegisterResponse>() {
@@ -194,8 +194,6 @@ public class Home extends AppCompatActivity {
 
                 HttpRequest.RetrofitInterface retrofitInterface
                         = HttpRequest.retrofit.create(HttpRequest.RetrofitInterface.class);
-
-
                 Call<MoneyResponse> responseCall = retrofitInterface.moneyCollected(defaultRequest);
                 responseCall.enqueue(new Callback<MoneyResponse>() {
                     @Override
@@ -212,14 +210,6 @@ public class Home extends AppCompatActivity {
                                     .setBackgroundColorRes(R.color.green)
                                     .enableSwipeToDismiss()
                                     .show();
-                            candidate_name.setText("");
-                            mobile_number.setText("");
-                            email_id.setText("");
-                            clg_name.setText("");
-                            amount_paid.setText("");
-                            amount_pending.setText("");
-                            amount_total.setText("");
-                            comment.setText("");
                         }
                         else{
                             spinner.setVisibility(View.GONE);

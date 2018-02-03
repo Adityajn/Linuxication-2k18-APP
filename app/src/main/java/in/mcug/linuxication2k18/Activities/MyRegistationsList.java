@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.tapadoo.alerter.Alerter;
 
@@ -34,14 +35,14 @@ public class MyRegistationsList extends AppCompatActivity {
 
     @BindView(R.id.recyclerView) RecyclerView rv;
     RecyclerView.Adapter radapter;
-
-
+    @BindView(R.id.spinner) ProgressBar spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_registations_list);
         ButterKnife.bind(this);
+        spinner.setVisibility(View.VISIBLE);
         ActionBar toolbar = getSupportActionBar();
         toolbar.setDisplayHomeAsUpEnabled(true);
         rv.setHasFixedSize(true);
@@ -69,15 +70,17 @@ public class MyRegistationsList extends AppCompatActivity {
                             .show();
                     radapter = new RegistrationListAdapter(docResponse,getApplicationContext());
                     rv.setAdapter(radapter);
+                    spinner.setVisibility(View.GONE);
                 }
                 else{
                     Alerter.create(MyRegistationsList.this)
                             .setTitle("Some Error Occurred")
-                            .setText("Error!! Contact App Administratot")
+                            .setText("Error!! "+docResponse.getMessage())
                             .setDuration(5000)
                             .setBackgroundColorRes(R.color.red)
                             .enableSwipeToDismiss()
                             .show();
+                    spinner.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -89,6 +92,7 @@ public class MyRegistationsList extends AppCompatActivity {
                         .setBackgroundColorRes(R.color.red)
                         .enableSwipeToDismiss()
                         .show();
+                spinner.setVisibility(View.GONE);
             }
         });
 

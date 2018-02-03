@@ -21,6 +21,13 @@ public class CandidatesList {
     @Expose
     private ArrayList<HashMap<String,String>> list;
 
+    public String getMessage() {
+        return message;
+    }
+
+    @SerializedName("msg")
+    @Expose
+    private String message;
 
     public boolean getStatus() {
         return status;
@@ -57,6 +64,11 @@ public class CandidatesList {
     public String getComment(int index){
         return list.get(index).get("comment");
     }
+
+    public String getCollege(int index){
+        return list.get(index).get("college");
+    }
+
 
     public int size(){
         return list.size();

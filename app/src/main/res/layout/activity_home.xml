@@ -16,9 +16,9 @@
             android:text="Candidate Registration Form"
             android:layout_gravity="center_horizontal"
             android:textSize="25dp"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:textStyle="bold"
-            android:layout_margin="10dp"/>
+            android:layout_marginBottom="10dp"/>
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -26,7 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textCapWords"
-                android:hint="Candidate Name(*)"
+                android:hint="Candidate Name*"
                 android:id="@+id/candidate_name"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:hint="Candidate Mobile Number(*)"
+                android:hint="Candidate Mobile Number*"
                 android:id="@+id/mobile_number"/>
         </android.support.design.widget.TextInputLayout>
         <android.support.design.widget.TextInputLayout
@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:hint="Paid(*)"
+                    android:hint="Paid*"
                     android:id="@+id/amount_paid"/>
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout

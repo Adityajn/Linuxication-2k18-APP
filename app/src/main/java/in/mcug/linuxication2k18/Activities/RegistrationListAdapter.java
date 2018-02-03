@@ -32,6 +32,7 @@ public class RegistrationListAdapter extends RecyclerView.Adapter<RecyclerView.V
         @BindView(R.id.paid) TextView paid;
         @BindView(R.id.pending) TextView pending;
         @BindView(R.id.datetime) TextView datetime;
+        @BindView(R.id.college) TextView college;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -56,13 +57,14 @@ public class RegistrationListAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RegistrationListAdapter.ViewHolder vholder = (RegistrationListAdapter.ViewHolder) holder;
         vholder.name.setText("Name : "+candidates.getName(position));
-        vholder.comment.setText("Comment : "+candidates.getComment(position));
-        vholder.datetime.setText("DateTime : \n"+candidates.getDateTime(position));
-        vholder.email.setText("Email : "+candidates.getEmail(position));
+        vholder.comment.setText("Comment :"+candidates.getComment(position));
+        vholder.datetime.setText("DateTime :\n"+candidates.getDateTime(position));
+        vholder.email.setText("Email :\n"+candidates.getEmail(position));
         vholder.mobile.setText("Mobile : "+candidates.getMobile(position));
-        vholder.paid.setText("Amount Paid : "+candidates.getPaid(position));
-        vholder.pending.setText("Amount Pending : "+candidates.getPending(position));
+        vholder.paid.setText("Paid : Rs "+candidates.getPaid(position));
+        vholder.pending.setText("Pending : Rs "+candidates.getPending(position));
         vholder.regId.setText("Reg ID : "+candidates.getRegID(position));
+        vholder.college.setText("College :"+candidates.getCollege(position));
     }
 
     @Override
