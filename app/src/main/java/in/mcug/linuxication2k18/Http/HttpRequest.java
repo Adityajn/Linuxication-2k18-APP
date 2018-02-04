@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 
 public class HttpRequest {
 
-    public static final String API_URL = "http://13.127.162.188:3000/";
+    public static final String API_URL = "http://139.59.93.203:3000/";
     public static Retrofit retrofit= new Retrofit.Builder()
             .baseUrl(API_URL)
             .addConverterFactory(GsonConverterFactory.create())
